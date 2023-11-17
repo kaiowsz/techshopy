@@ -1,5 +1,5 @@
 
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useRef } from "react";
 import Link from "next/link";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping, AiOutlineShop } from "react-icons/ai"
@@ -14,9 +14,14 @@ export default function Cart() {
     const cartRef = useRef()
     const StateContext = useContext(Context)
 
+    const [loadingPayment, setLoadingPayment] = useState(false)
+
     const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuantity, onRemove } = StateContext
 
     async function handleCheckout() {
+
+        setLoadingPayment(true)
+
         const stripe = await getStripe();
 
         const response = await fetch("/api/stripe", {
@@ -34,6 +39,8 @@ export default function Cart() {
         toast.loading("Redirecting...")
 
         stripe.redirectToCheckout({ sessionId: data.id })
+
+        setLoadingPayment(false)
     }
     
     return (
@@ -103,7 +110,7 @@ export default function Cart() {
                         </div>
                         <div className="btn-container">
                             <button type="button" className="btn" onClick={handleCheckout}>
-                                Pay with stripe
+                                {loadingPayment ? "LOADING..." : "PAY WITH STRIPE"}
                             </button>
                         </div>
                     </div>
