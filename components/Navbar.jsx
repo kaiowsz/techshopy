@@ -13,7 +13,7 @@ export default function Navbar() {
     return (
         <div className="navbar-container">
             <p className="logo">
-                <Link href="/">Kaiowsz Headphones</Link>
+                <Link href="/">techshopy</Link>
             </p>
 
             <button type="button" 
