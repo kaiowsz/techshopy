@@ -10,7 +10,8 @@ export default function Layout({ children }) {
     return (
         <div className="layout">
             <Head>
-                <title>Kaiowsz Store</title>
+                <title>Techshopy</title>
+                <meta name="description" content="Buy your favorites technologies with the best price of the market inside the Techshopy." />
             </Head>
             <header>
                 <Navbar />
